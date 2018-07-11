@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="./css/style.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="./js/bootstrap3-typeahead.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Demo 1<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Demo 2</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="container">
+
+      <div class="starter-template">
+        <h1>Auto-complete Demo</h1>
+        <p class="lead">This is a auto-complete demo site.</p>
+      
+        <form class="col-md-auto">
+          <input id="search-box" class="typeahead" type="text" placeholder="Search Product Name" autocomplete="off" data-provide="typeahead">
+          <div id="suggesstion-box"></div>
+        </form>
+
+    </main><!-- /.container -->
+
+    <script>
+      $('#search-box').typeahead({
+        source: function (query, process) {
+          return $.get('https://us-central1-pmmyth-207106.cloudfunctions.net/hello', { query: query }, function (data) {
+            console.log(data.options);
+            return process(data.options);
+          });
+        }
+      });
+    </script>
+
+</div>
+
+</body>
+</html>
