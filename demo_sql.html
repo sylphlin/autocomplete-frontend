@@ -31,36 +31,31 @@
       </div>
     </nav>
 
-    <main role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Auto Complete Demo</h1>
-          <p>This is a demo for a real-time, low latency autocomplete solutoin which can support a large dataset (at least 3M records).</p>
-        </div>
-      </div>
+    <main role="main" class="container">
 
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Demo 1</h2>
-            <p>This is based on Google Cloud Function as API gateway and store dataset in Cloud SQL.</p>
-            <p><a class="btn btn-primary" href="demo_sql.html" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Demo 2</h2>
-            <p></p>
-            <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Demo 3</h2>
-            <p></p>
-            <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-        </div>
+      <div class="starter-template">
+        <h1>Auto-complete Demo</h1>
+        <p class="lead">This is a auto-complete demo site.</p>
+      
+        <form class="col-md-auto">
+          <input id="search-box" class="typeahead col-md-6" type="text" placeholder="Search Product Name" autocomplete="off" data-provide="typeahead">
+          <div id="suggesstion-box"></div>
+        </form>
 
-    </div>
+    </main><!-- /.container -->
+
+    <script>
+      $('#search-box').typeahead({
+        source: function (query, process) {
+          return $.get('https://us-central1-pmmyth-207106.cloudfunctions.net/search-by-sql', { search: query }, function (data) {
+            console.log(data.options);
+            return process(data.options);
+          });
+        }
+      });
+    </script>
+
+</div>
 
 </body>
 </html>
